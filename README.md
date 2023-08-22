@@ -1,24 +1,27 @@
 ## Introdução
 
+Em desenvolvimento
+
 ## Descrição
 
 Sistema de rastreamento veicular
 
 ## Tecnologias
 
-> Nestjs
-> Nextjs
-> Docker
-> Apache Kafka
-> Golang
-> Grafana
-> Mongodb
-> Promotheus
+- Nestjs
+- Nextjs
+- Docker
+- Apache Kafka
+- Golang
+- Grafana
+- Mongodb
+- Promotheus
 
 ## Instalação
 
 ```bash
 $ npm install
+$ npx prisma generate
 ```
 
 ## Rodando o app
