@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import {
   DirectionsRequest,
   Client as GoogleMapsClient,
-  PlaceInputType,
   TravelMode,
 } from '@googlemaps/google-maps-services-js';
 import { ConfigService } from '@nestjs/config';
@@ -16,8 +15,8 @@ export class DirectionsService {
 
   async getDirections(placeOriginId: string, placeDestinationId: string) {
     const requestParams: DirectionsRequest['params'] = {
-      origin: `place_id:${placeOriginId}`,
-      destination: `place_id:${placeDestinationId}`,
+      origin: `place_id:${placeOriginId.replace('place_id:', '')}`,
+      destination: `place_id:${placeDestinationId.replace('place_id:', '')}`,
       mode: TravelMode.driving,
       key: this.configService.get<string>('GOOGLE_MAPS_API_KEY'),
     };

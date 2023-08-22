@@ -24,7 +24,7 @@ $ npm install
 $ npx prisma generate
 ```
 
-## Rodando o app
+## Rodando o nestjs
 
 ```bash
 # development
@@ -35,6 +35,16 @@ $ npm run start:dev
 
 # production mode
 $ npm run start:prod
+```
+
+## Rodando o nextjs
+
+```bash
+# development
+$ npm run dev
+
+# production mode
+$ npm run prod
 ```
 
 ## Teste
