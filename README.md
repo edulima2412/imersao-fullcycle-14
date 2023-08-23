@@ -8,6 +8,7 @@ Sistema de rastreamento veicular
 
 ## Tecnologias
 
+- React
 - Nestjs
 - Nextjs
 - Docker
