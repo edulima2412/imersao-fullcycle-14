@@ -9,6 +9,9 @@ Sistema de rastreamento veicular
 ## Tecnologias
 
 - React
+- Typescript
+- Socket.io
+- Material UI
 - Nestjs
 - Nextjs
 - Docker
@@ -48,7 +51,7 @@ $ npm run dev
 $ npm run prod
 ```
 
-## Teste
+## Testando o nestjs
 
 ```bash
 # unit tests

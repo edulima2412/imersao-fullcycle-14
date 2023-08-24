@@ -14,7 +14,7 @@ export function NewRoutePage() {
     DirectionsResponseData & { request: any }
   >();
 
-  async function routeCreate(event: FormEvent) {
+  async function searchPlaces(event: FormEvent) {
     event.preventDefault();
 
     const source = (document.getElementById("source") as HTMLInputElement)
@@ -104,7 +104,7 @@ export function NewRoutePage() {
         <h1>Nova Rota</h1>
         <form
           style={{ display: "flex", flexDirection: "column" }}
-          onSubmit={routeCreate}
+          onSubmit={searchPlaces}
         >
           <div>
             <input type="text" name="source" id="source" placeholder="Origem" />
