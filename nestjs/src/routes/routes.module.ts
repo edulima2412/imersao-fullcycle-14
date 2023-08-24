@@ -9,6 +9,7 @@ import { BullModule } from '@nestjs/bull';
 import { NewPointsJob } from './new-points.job';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { KafkaProducerJob } from './kafka-producer.job';
+import { makeCounterProvider } from '@willsoto/nestjs-prometheus';
 
 @Module({
   imports: [
@@ -37,6 +38,14 @@ import { KafkaProducerJob } from './kafka-producer.job';
     RoutesGateway,
     NewPointsJob,
     KafkaProducerJob,
+    makeCounterProvider({
+      name: 'route_started_counter',
+      help: 'Numero de rotas iniciadas',
+    }),
+    makeCounterProvider({
+      name: 'route_finished_counter',
+      help: 'Numero de rotas finalizadas',
+    }),
   ],
 })
 export class RoutesModule {}
