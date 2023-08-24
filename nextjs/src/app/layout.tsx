@@ -1,22 +1,29 @@
-import './globals.css'
-import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import "./globals.css";
+import type { Metadata } from "next";
+import { Inter, Roboto } from "next/font/google";
+import ThemeRegistry from "./components/ThemeRegistry/ThemeRegistry";
+import { Navbar } from "./components/Navbat";
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'Rastreamento',
-  description: 'Rastreamento de veiculos',
-}
+  title: "Rastreamento",
+  description: "Rastreamento de veiculos",
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="pt-br">
+      <body>
+        <ThemeRegistry>
+          <Navbar />
+          {children}
+        </ThemeRegistry>
+      </body>
     </html>
-  )
+  );
 }
