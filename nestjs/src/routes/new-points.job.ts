@@ -8,7 +8,6 @@ export class NewPointsJob {
 
   @Process()
   async handle(job: Job<{ route_id: string; lat: number; lng: number }>) {
-    console.log('4');
     await this.routesDriverService.createOrUpdate(job.data);
     return {};
   }
