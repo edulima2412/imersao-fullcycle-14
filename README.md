@@ -6,6 +6,13 @@ Em desenvolvimento
 
 Sistema de rastreamento veicular
 
+### Paginas de acesso:
+
+- new-route: Criar nova rota
+- driver: Iniciar rota
+- admin: Visualizar todas as rotas
+- metrics: Estatisticas da aplicação
+
 ## Tecnologias
 
 - React
