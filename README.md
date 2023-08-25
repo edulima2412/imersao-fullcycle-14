@@ -6,12 +6,17 @@ Em desenvolvimento
 
 Sistema de rastreamento veicular
 
-### Paginas de acesso:
+### Paginas de acesso
 
 - new-route: Criar nova rota
 - driver: Iniciar rota
 - admin: Visualizar todas as rotas
 - metrics: Estatisticas da aplicação
+
+### Scripts
+``` sql
+CREATE TABLE routes (id varchar(36) primary key, name varchar(255) not null, distance float not null, status varchar(255) not null, freight_price float, started_at datetime, finished_at datetime);
+```
 
 ## Tecnologias
 
