@@ -15,7 +15,7 @@ import (
 
 func main() {
 	msgChan := make(chan *ckafka.Message)
-	topics := []string{"route"}
+	topics := []string{"routes"}
 	servers := "host.docker.internal:9094"
 	go kafka.Consume(topics, servers, msgChan)
 

@@ -14,7 +14,10 @@ Sistema de rastreamento veicular
 - metrics: Estatisticas da aplicação
 
 ### Scripts
-``` sql
+
+- Conectar mysql -uroot -p routes
+
+```sql
 CREATE TABLE routes (id varchar(36) primary key, name varchar(255) not null, distance float not null, status varchar(255) not null, freight_price float, started_at datetime, finished_at datetime);
 ```
 
