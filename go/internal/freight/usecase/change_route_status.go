@@ -7,17 +7,17 @@ import (
 )
 
 type ChangeRouteStatusInput struct {
-	ID         string            `json:id`
-	StartedAt  entity.CustomTime `json:started_at`
-	FinishedAt entity.CustomTime `json:finished_at`
-	Event      string            `json:event`
+	ID         string            `json:"id"`
+	StartedAt  entity.CustomTime `json:"started_at"`
+	FinishedAt entity.CustomTime `json:"finished_at"`
+	Event      string            `json:"event"`
 }
 
 type ChangeRouteStatusOutput struct {
-	ID         string            `json:id`
-	Status     string            `json:status`
-	StartedAt  entity.CustomTime `json:started_at`
-	FinishedAt entity.CustomTime `json:finished_at`
+	ID         string
+	Status     string
+	StartedAt  entity.CustomTime
+	FinishedAt entity.CustomTime
 }
 
 type ChangeRouteStatusUseCase struct {
@@ -46,15 +46,12 @@ func (u *ChangeRouteStatusUseCase) Execute(input ChangeRouteStatusInput) (*Chang
 	}
 
 	err = u.Repository.Update(route)
-
 	if err != nil {
 		return nil, err
 	}
 
 	return &ChangeRouteStatusOutput{
-		ID:         route.ID,
-		Status:     route.Status,
-		StartedAt:  entity.CustomTime(route.StartedAt),
-		FinishedAt: entity.CustomTime(route.FinishedAt),
+		ID:     route.ID,
+		Status: route.Status,
 	}, nil
 }

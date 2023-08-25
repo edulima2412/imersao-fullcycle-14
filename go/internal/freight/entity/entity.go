@@ -6,16 +6,14 @@ import (
 
 type CustomTime time.Time
 
-const layout = "2006-01-02T15:04:00Z"
+const layout = "2006-01-02T15:04:05.999Z"
 
 func (ct *CustomTime) UnmarshalJSON(b []byte) error {
 	s := string(b)
-	t, err := time.Parse(layout, s[1:len(s)-1])
-
+	t, err := time.Parse(layout, s[1:len(s)-1]) // Remove quotes
 	if err != nil {
 		return err
 	}
-
 	*ct = CustomTime(t)
 	return nil
 }
@@ -36,7 +34,6 @@ type Route struct {
 	FinishedAt   time.Time
 }
 
-// Metodo
 func NewRoute(id, name string, distance float64) *Route {
 	return &Route{
 		ID:       id,
@@ -46,13 +43,11 @@ func NewRoute(id, name string, distance float64) *Route {
 	}
 }
 
-// Função
 func (r *Route) Start(startedAt time.Time) {
 	r.Status = "started"
 	r.StartedAt = startedAt
 }
 
-// Função
 func (r *Route) Finish(finishedAt time.Time) {
 	r.Status = "finished"
 	r.FinishedAt = finishedAt
@@ -66,7 +61,6 @@ type Freight struct {
 	PricePerKm float64
 }
 
-// Metodo
 func NewFreight(pricePerKm float64) *Freight {
 	return &Freight{
 		PricePerKm: pricePerKm,
@@ -74,5 +68,5 @@ func NewFreight(pricePerKm float64) *Freight {
 }
 
 func (f *Freight) Calculate(route *Route) {
-	route.FreightPrice = route.Distance * f.PricePerKm
+	route.FreightPrice = f.PricePerKm * route.Distance
 }

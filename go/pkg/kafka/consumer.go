@@ -10,6 +10,7 @@ func Consume(topics []string, servers string, msgChan chan *kafka.Message) {
 		"group.id":          "goapp",
 		"auto.offset.reset": "earliest",
 	})
+
 	if err != nil {
 		panic(err)
 	}
