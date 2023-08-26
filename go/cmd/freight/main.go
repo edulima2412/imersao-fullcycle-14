@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
+	"net/http"
 
 	ckafka "github.com/confluentinc/confluent-kafka-go/kafka"
 	"github.com/edulima2412/imersao-fullcycle-14/internal/freight/entity"
@@ -11,7 +12,39 @@ import (
 	"github.com/edulima2412/imersao-fullcycle-14/internal/freight/usecase"
 	"github.com/edulima2412/imersao-fullcycle-14/pkg/kafka"
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
+
+var (
+	routesCreated = prometheus.NewCounter(
+		prometheus.CounterOpts{
+			Name: "routes_created_total",
+			Help: "Numero total de rotas criadas",
+		},
+	)
+
+	routesStarted = prometheus.NewCounterVec(
+		prometheus.CounterOpts{
+			Name: "routes_started_total",
+			Help: "Numero total de rotas iniciadas",
+		},
+		[]string{"status"},
+	)
+
+	errorsTotal = prometheus.NewCounter(
+		prometheus.CounterOpts{
+			Name: "errors_total",
+			Help: "Numero total de problemas",
+		},
+	)
+)
+
+func init() {
+	prometheus.MustRegister(routesStarted)
+	prometheus.MustRegister(errorsTotal)
+	prometheus.MustRegister(routesCreated)
+}
 
 func main() {
 	msgChan := make(chan *ckafka.Message)
@@ -24,6 +57,10 @@ func main() {
 		panic(err)
 	}
 	defer db.Close()
+
+	http.Handle("/metrics", promhttp.Handler())
+	go http.ListenAndServe(":8080", nil)
+
 	repository := repository.NewRouteRepositoryMysql(db)
 	freight := entity.NewFreight(10)
 	createRouteUseCase := usecase.NewCreateRouteUseCase(repository, freight)
@@ -38,6 +75,9 @@ func main() {
 			_, err := createRouteUseCase.Execute(input)
 			if err != nil {
 				fmt.Println(err)
+				errorsTotal.Inc()
+			} else {
+				routesCreated.Inc()
 			}
 
 		case "RouteStarted":
@@ -46,6 +86,9 @@ func main() {
 			_, err := changeRouteStatusUseCase.Execute(input)
 			if err != nil {
 				fmt.Println(err)
+				errorsTotal.Inc()
+			} else {
+				routesStarted.WithLabelValues("started").Inc()
 			}
 
 		case "RouteFinished":
@@ -54,6 +97,9 @@ func main() {
 			_, err := changeRouteStatusUseCase.Execute(input)
 			if err != nil {
 				fmt.Println(err)
+				errorsTotal.Inc()
+			} else {
+				routesStarted.WithLabelValues("finished").Inc()
 			}
 		}
 	}

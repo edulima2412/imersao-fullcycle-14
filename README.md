@@ -13,6 +13,16 @@ Sistema de rastreamento veicular
 - admin: Visualizar todas as rotas
 - metrics: Estatisticas da aplicação
 
+### URLs
+
+- Sistema Rastreamento: http://localhost:3001
+- Nests Metrics: http://localhost:3000/metrics
+- Control Center Kafka: http://localhost:9021
+- Prisma Studio: http://localhost:5555
+- Go Metrics: http://localhost:9021/metrics
+- Prometheus: http://localhost:9090
+- Grafana: http://localhost:4000
+
 ### Scripts
 
 - Conectar mysql -uroot -p routes
@@ -78,3 +88,7 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
+
+## Configurações adicionais
+
+Liberar acesso a pasta do grafana atraves do comando chmod -R 777
